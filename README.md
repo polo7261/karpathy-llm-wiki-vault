@@ -36,9 +36,7 @@
     └── 🛠️ skills/               ← Agent Skill中心
         ├── ⚙️ ingest/           ← 自訂：編譯收件箱 raw 檔案到 wiki，並執行 09-archive 歸檔
         ├── 🔎 query/            ← 自訂：檢索 wiki/index 並讀取相關頁面，生成帶雙鏈引用的回答
-        ├── 🩺 lint/             ← 自訂：知識體檢，修復死鏈、補充 index、發現認知衝突
-        ├── 🔌 obsidian-cli/     ← Obsidian官方：呼叫 Obsidian 原生 API 進行檢索、開啟頁面
-        └── 🪄 defuddle/         ← Obsidian官方：將網頁 URL 自動清理並轉化為 Markdown 存入 raw/
+        └── 🩺 lint/             ← 自訂：知識體檢，回報死鏈、孤兒頁面、未同步索引與認知衝突
 ```
 
 
