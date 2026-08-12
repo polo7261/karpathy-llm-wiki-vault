@@ -32,6 +32,12 @@
 ├── 🤖 CLAUDE.md                 ← Claude Code 入口（轉引 CONTEXT.md）
 ├── 🧩 AGENTS.md                 ← Codex 入口（轉引 CONTEXT.md）
 │
+├── 🔧 scripts/                  ← 維護工具
+│   ├── to-traditional.sh        ← 簡→繁（台灣正體）轉換與驗證
+│   ├── detect-simplified.py     ← 逐字元偵測簡體殘留
+│   ├── tw-fixups.tsv            ← OpenCC 誤轉修正表
+│   └── tw-ambiguous.txt         ← 繁簡共用歧義字清單
+│
 └── ⚙️ .claude/                  ← Claude Code 官方配置目錄
     └── 🛠️ skills/               ← Agent Skill中心
         ├── ⚙️ ingest/           ← 自訂：編譯收件箱 raw 檔案到 wiki，並執行 09-archive 歸檔
@@ -58,9 +64,32 @@
 修改規範時**只改 `CONTEXT.md`** —— 兩份入口各自維護一套規則，正是規範互相
 打架的來源。
 
+## 維護：簡體 → 繁體轉換
+
+本庫 fork 自簡體上游，內容已全數轉為台灣正體。從 upstream 拉進新內容後，
+執行轉換腳本即可，不必手動解 merge 衝突：
+
+```bash
+brew install opencc                  # 首次需安裝相依（另需 python3）
+./scripts/to-traditional.sh          # 轉換 + 修正 + 驗證
+./scripts/to-traditional.sh --check  # 只檢查不修改（可用於 CI）
+```
+
+腳本是冪等的 —— 對已是繁體的內容重跑不會造成任何變更。
+
+> ⚠ **不要直接對全庫跑 `opencc -c s2twp`**。s2twp 對已經是繁體的內容並不冪等：
+> 它會把 `tw-fixups.tsv` 已修正的詞改回誤譯，也會把正確的「文件(document)」
+> 誤轉成「檔案(file)」。腳本因此先用 `detect-simplified.py` 逐字元判斷，
+> **只轉真的含簡體字的檔案**，再套用 `tw-fixups.tsv` 修正 s2twp 本身的誤轉。
+
+遇到誤判時的維護方式：
+
+- 轉出來的詞不符台灣用語 → 加一行到 `tw-fixups.tsv`
+- 明明是正確繁體卻被當成簡體 → 把該字加進 `tw-ambiguous.txt`
+
 ## 知識來源
 
 - Google Gemini API 官方文件
 - Anthropic Claude 最佳實踐
-- 各機構釋出的 Prompt Engineering 白皮書
+- 各機構發布的 Prompt Engineering 白皮書
 - 學術論文（如 5C Prompt Contracts）
