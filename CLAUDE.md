@@ -1,79 +1,79 @@
-# 语言设定与核心角色 (Global Rules)
-- **语言指令**：无论输入何种语言，你必须始终使用**简体中文**进行思考、回复和知识库的编写。
-- **角色定义**：你正在维护一个 **LLM Wiki**（根据 [Karpathy 的规范](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f))，你的任务是将碎片化的信息编译成结构化、高度相互链接的 Obsidian 知识库。
+# 語言設定與核心角色 (Global Rules)
+- **語言指令**：無論輸入何種語言，你必須始終使用**簡體中文**進行思考、回覆和知識庫的編寫。
+- **角色定義**：你正在維護一個 **LLM Wiki**（根據 [Karpathy 的規範](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f))，你的任務是將碎片化的資訊編譯成結構化、高度相互連結的 Obsidian 知識庫。
 
-# 核心目录与权限边界 (Immutability & Architecture)
-你必须严格遵守以下文件操作权限，这是不可逾越的底线：
+# 核心目錄與權限邊界 (Immutability & Architecture)
+你必須嚴格遵守以下檔案操作權限，這是不可逾越的底線：
 
-- `/raw/` (不可变层 - Immutable)：
-  - **绝对只读**。这里存放我的原始素材、网页剪藏和自媒体文案。
-  - **禁止修改或删除此目录下的任何文件**。它是事实的唯一真相来源。
-- `/assets/` (媒体资产层)：
-  - 存放图片、PDF和媒体。引用时使用 Obsidian 标准语法 `![[文件名称.png]]`。
-- `/wiki/` (编译输出层 - You Own This)：
-  - 这是你的专属工作区。你需要在此处创建、更新、提炼知识并解决矛盾。
+- `/raw/` (不可變層 - Immutable)：
+  - **絕對唯讀**。這裡存放我的原始素材、網頁剪藏和自媒體文案。
+  - **禁止修改或刪除此目錄下的任何檔案**。它是事實的唯一真相來源。
+- `/assets/` (媒體資產層)：
+  - 存放圖片、PDF和媒體。引用時使用 Obsidian 標準語法 `![[檔案名稱.png]]`。
+- `/wiki/` (編譯輸出層 - You Own This)：
+  - 這是你的專屬工作區。你需要在此處建立、更新、提煉知識並解決矛盾。
 
-# Wiki 核心文件契约 (The Wiki Schema)
-当你在 `/wiki/` 中工作时（尤其是执行写入操作后），必须维护以下基石：
+# Wiki 核心檔案契約 (The Wiki Schema)
+當你在 `/wiki/` 中工作時（尤其是執行寫入操作後），必須維護以下基石：
 
-1. **`wiki/index.md` (总目录)**：
-   每次向 wiki 新增知识页后，必须同步更新此文件，将其按分类加入目录中。
-   格式要求： [[页面名称]] — 一句话描述。
+1. **`wiki/index.md` (總目錄)**：
+   每次向 wiki 新增知識頁後，必須同步更新此檔案，將其按分類加入目錄中。
+   格式要求： [[頁面名稱]] — 一句話描述。
     - Entities/Concepts: 使用 TitleCase 命名。
     - Sources/Syntheses: 使用 kebab-case 命名。
-    范例：
+    範例：
     ```markdown
     # Wiki Index
 
     ## Sources
-    - [[摘要-source-slug]] — 该资料的核心主旨摘要。
+    - [[摘要-source-slug]] — 該資料的核心主旨摘要。
 
     ## Entities
-    - [[EntityName]] — 该实体的身份定义或核心功能。
+    - [[EntityName]] — 該實體的身份定義或核心功能。
 
     ## Concepts
-    - [[ConceptName]] — 该概念或框架的核心定义。
+    - [[ConceptName]] — 該概念或框架的核心定義。
 
     ## Syntheses
-    - [[synthesis-slug]] — 该页面回答的复杂问题。
+    - [[synthesis-slug]] — 該頁面回答的複雜問題。
     ```
-2. **`wiki/log.md` (操作日志)**：
-    只能追加写入（Append-only）。每次操作后记录：`## [YYYY-MM-DD] <动作> | <操作简述>`。
-    操作类型： ingest, query, lint, sync
-    范例：
+2. **`wiki/log.md` (操作日誌)**：
+    只能追加寫入（Append-only）。每次操作後記錄：`## [YYYY-MM-DD] <動作> | <操作簡述>`。
+    操作型別： ingest, query, lint, sync
+    範例：
     ```markdown
-    ## [2026-04-11] ingest | 引入项目 Claude Code 核心概念
-    - **变更**: 新增 [[ClaudeCode]], [[摘要-claude-code-docs]]; 更新 [[index.md]]
-    - **冲突**: 无 (或: 冲突 [[RAG架构]], 已标注)
+    ## [2026-04-11] ingest | 引入專案 Claude Code 核心概念
+    - **變更**: 新增 [[ClaudeCode]], [[摘要-claude-code-docs]]; 更新 [[index.md]]
+    - **衝突**: 無 (或: 衝突 [[RAG架構]], 已標註)
 
     ## [2026-04-11] query | 解析 Karpathy LLM-Wiki 理念
-    - **输出**: 已保存至 [[分析-karpathy-wiki-philosophy]]
+    - **輸出**: 已儲存至 [[分析-karpathy-wiki-philosophy]]
 
-    ## [2026-04-11] lint | 周度健康检查
-    - **结果**: 修复 2 处死链，发现 1 个孤儿页面 [[UnlinkedPage]]
+    ## [2026-04-11] lint | 周度健康檢查
+    - **結果**: 修復 2 處死鏈，發現 1 個孤兒頁面 [[UnlinkedPage]]
     ```
-3. **内容分类**：
-   - `/wiki/concepts/`：存放概念、框架、方法论（如 `Agent_Skill.md`）。
-   - `/wiki/entities/`：存放人物、公司、工具、产品（如 `Claude_Code.md`）。
-   - `/wiki/sources/`：存放从 `raw/` 提炼出的原始素材摘要。
-4. **强制双向链接**：
-   每一个 wiki 页面必须包含 `## 关联连接` 区域，使用 Obsidian 双链 `[[页面名称]]` 链接到其他相关概念。绝不能产生孤岛页面。
-5. **矛盾处理原则**：
-   如果新摄入的知识与旧知识冲突，不要静默覆盖。在页面中新建 `## 知识冲突` 区块，将两种说法都保留并做对比。
+3. **內容分類**：
+   - `/wiki/concepts/`：存放概念、框架、方法論（如 `Agent_Skill.md`）。
+   - `/wiki/entities/`：存放人物、公司、工具、產品（如 `Claude_Code.md`）。
+   - `/wiki/sources/`：存放從 `raw/` 提煉出的原始素材摘要。
+4. **強制雙向連結**：
+   每一個 wiki 頁面必須包含 `## 關聯連線` 區域，使用 Obsidian 雙鏈 `[[頁面名稱]]` 連結到其他相關概念。絕不能產生孤島頁面。
+5. **矛盾處理原則**：
+   如果新攝入的知識與舊知識衝突，不要靜默覆蓋。在頁面中新建 `## 知識衝突` 區塊，將兩種說法都保留並做對比。
 
-# 工作流指令说明 (Workflows / Skills)
-当被要求执行以下操作时，请遵循核心逻辑（未来可能由专用 Agent Skills 接管）：
+# 工作流指令說明 (Workflows / Skills)
+當被要求執行以下操作時，請遵循核心邏輯（未來可能由專用 Agent Skills 接管）：
 
-- `/ingest <路径>`：读取指定的 `raw/` 文件，将其核心价值提炼并整合到 `wiki/` 目录的相关概念/实体中。必须更新 index 和 log。
-- `/query <问题>`：通过读取 `wiki/index.md` 寻找相关文件，进行深度阅读后综合回答，并在回答中必须使用 `[[wikilink]]` 标注引用来源。
-- `/lint`：全局扫描 `wiki/` 目录，找出孤岛页面（没有双链）、死链（链接不存在的页面）以及存在逻辑冲突的地方，并向我报告。
+- `/ingest <路徑>`：讀取指定的 `raw/` 檔案，將其核心價值提煉並整合到 `wiki/` 目錄的相關概念/實體中。必須更新 index 和 log。
+- `/query <問題>`：通過讀取 `wiki/index.md` 尋找相關檔案，進行深度閱讀後綜合回答，並在回答中必須使用 `[[wikilink]]` 標註引用來源。
+- `/lint`：全域掃描 `wiki/` 目錄，找出孤島頁面（沒有雙鏈）、死鏈（連結不存在的頁面）以及存在邏輯衝突的地方，並向我報告。
 
-# 页面 Frontmatter (YAML) 规范
-所有生成的 wiki 页面必须包含以下 YAML 头部：
+# 頁面 Frontmatter (YAML) 規範
+所有生成的 wiki 頁面必須包含以下 YAML 頭部：
 ---
-title: "页面标题"
+title: "頁面標題"
 type: concept | entity | source | synthesis
-tags: [知识标签]
-sources:[关联的raw文件相对路径]
+tags: [知識標籤]
+sources:[關聯的raw檔案相對路徑]
 last_updated: YYYY-MM-DD
 ---
