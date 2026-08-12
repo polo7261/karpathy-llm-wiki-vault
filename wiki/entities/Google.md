@@ -43,7 +43,7 @@ Google Research 2017 年發表的《Attention Is All You Need》論文，提出�
 - **Gemini**（2023+）：原生多模態模型
 
 ### Prompt Engineering 白皮書
-2024 年釋出的官方白皮書：
+2024 年發布的官方白皮書：
 - 系統介紹提示工程技術
 - 涵蓋從基礎到高階的完整技術棧
 - 提供多種語言的示例和最佳實踐

@@ -13,7 +13,7 @@
 🏛️ 你的知識庫資料夾 (LLM-Wiki-Vault)
 ├── 🖼️ assets/                   ← 統一媒體資源層：存放圖片、PDF、附件（Obsidian設定附件路徑至此）
 │
-├── 📥 raw/                      ← 原始資料收件箱（唯讀事實層，檔案處理後移動至 archive）
+├── 📥 raw/                      ← 原始資料收件箱（事實層：內容不可改，處理後可移至 archive）
 │   ├── 📄 01-articles/          ← 網頁剪藏、技術文章 (.md)
 │   ├── 🎓 02-papers/            ← 論文、深度研報、PDF文件
 │   ├── 🎙️ 03-transcripts/       ← 影片/播客轉錄文本、會議記錄
@@ -28,7 +28,9 @@
 │   ├── 🔍 sources/              ← 摘要層：針對 raw 檔案的一對一核心觀點提煉 
 │   └── 💎 syntheses/            ← 綜合層：針對複雜提問生成的深度研究報告 
 │
-├── 🤖 CLAUDE.md                 ← 全域心智規範：定義語言協議、讀寫權限與 Wiki Schema
+├── 📐 CONTEXT.md                ← 唯一規範來源：語言協議、讀寫權限、Wiki Schema
+├── 🤖 CLAUDE.md                 ← Claude Code 入口（轉引 CONTEXT.md）
+├── 🧩 AGENTS.md                 ← Codex 入口（轉引 CONTEXT.md）
 │
 └── ⚙️ .claude/                  ← Claude Code 官方配置目錄
     └── 🛠️ skills/               ← Agent Skill中心
@@ -42,13 +44,21 @@
 
 ## 使用方式
 
-在 Obsidian 中開啟本 vault，使用Claude Code或者Claudian外掛執行操作。
+在 Obsidian 中開啟本 vault，使用 Claude Code、Codex 或 Claudian 外掛執行操作。
 
 ### 常用命令
 
-- `/query <問題>` — 在知識庫中搜索相關內容
+- `/query <問題>` — 在知識庫中搜尋相關內容
 - `/ingest` — 將新的原始資料編譯到知識庫
 - `/lint` — 檢查知識庫健康度（死鏈、孤兒頁面）
+
+### Agent 規範
+
+規範採單一來源：實質規則全部寫在 **`CONTEXT.md`**，`CLAUDE.md`（Claude Code）
+與 `AGENTS.md`（Codex）只是入口，各自轉引並補充該工具專屬的部分。
+
+修改規範時**只改 `CONTEXT.md`** —— 兩份入口各自維護一套規則，正是規範互相
+打架的來源。
 
 ## 知識來源
 

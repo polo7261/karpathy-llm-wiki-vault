@@ -8,7 +8,7 @@ last_updated: 2026-04-12
 
 ## 核心摘要
 
-Google 官方於 2024 年 9 月釋出的 Prompt Engineering 白皮書，作者 Lee Boonstra。系統介紹了提示工程的技術原理、配置引數和高階技巧。
+Google 官方於 2024 年 9 月發布的 Prompt Engineering 白皮書，作者 Lee Boonstra。系統介紹了提示工程的技術原理、配置引數和高階技巧。
 
 **核心內容：**
 
